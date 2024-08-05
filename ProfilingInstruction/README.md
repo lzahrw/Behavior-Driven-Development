@@ -38,3 +38,96 @@
 
 
 ## بخش دوم: یک پروژه‌ی دیگر
+
+همانطور که می‌دانید محاسبه اعداد اول کار زمان بری هست. با در نطر گرفتن این موضوع من مسله محاسبه جمع اعداد اول تا یک عدد داده شده را انتخاب کردم. در مرحله اول پیاده سازی به ترتیب همه اعداد را بررسی کردم و برای بررسی هر عدد هم در تابع isPrime شرط بخش پذیری را برای تمام اعداد کوچکتر بررسی کردم. 
+
+<div dir="ltr">
+
+```java
+public class Prime {
+    public static void main(String[] args) {
+        int n = 2000000;
+        ArrayList<Integer> primeNumbers = new ArrayList<>();
+
+        for (int i = 2; i <= n; i++) {
+            if (isPrime(i)) {
+                primeNumbers.add(i);
+            }
+        }
+
+        long sum = 0;
+        for (int num : primeNumbers) {
+            sum += num;
+        }
+
+        System.out.println("Sum of prime numbers up to " + n + " is equal to: " + sum);
+    }
+
+    public static boolean isPrime(int num) {
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+
+</div>
+
+پس از آن با عدد ۲ میلیون برنامه را اجرا کردم و نتایج زیر بدست آمد. همانطور که مشاهده می‌شود تقریبا تمام زمان صرف تابه isPrime شده است.
+
+![Screenshot from 2024-08-05 16-41-01](https://github.com/user-attachments/assets/a186a09c-af9a-4d91-b6c8-1a2b1c947144)
+
+![Screenshot from 2024-08-05 16-51-35](https://github.com/user-attachments/assets/af2237f5-1488-4dcb-8a1f-3da722c7c04a)
+
+برای بهبود کد از الگوریتم [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) استفاده میکنم و ابتدا تمام اعداد اول تا عدد گفته شده را مشخص میکند و سپس با استفاده ار آن مجموع اعداد را محاسبه میکتیم. این الگوریتم به دو شکل باعث بهبود میشود. اول اینکه تا جذر عدد گفته شده پیش میرود و بعد با استفاده از صرایب اعداد اول، اعداد غیر اول را بدست می‌آورد و نیاز نیست برای تمام اعداد، بخش پذیزی تمام اعداد کوچیکر را بدست آورد. با اینکار سرعت افزایش پیدا میکند.
+
+<div dir="ltr">
+  
+```java
+public class Prime {
+    public static void main(String[] args) {
+        int n = 2000000;
+        boolean[] isPrime = isPrime(n);
+
+        long sum = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                sum += i;
+            }
+        }
+
+        System.out.println("Sum of prime numbers up to " + n + " is equal to: " + sum);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean[] isPrime(int num) {
+        boolean[] isPrime = new boolean[num + 1];
+        for (int i = 2; i <= num; i++) {
+            isPrime[i] = true;
+        }
+        for (int p = 2; p * p <= num; p++) {
+            if (isPrime[p]) {
+                for (int i = p * p; i <= num; i += p) {
+                    isPrime[i] = false;
+                }
+            }
+        }
+        return isPrime;
+    }
+}
+```
+
+</div>
+
+کد جدید را با همان عدد ۲ میلیون اجرا میکنیم که نتایج زیر بدست می‌آید و زمان به شدت کاهش یافه است. از چند ثانیه به چند میلی ثانیه تغییر میکند. برای اینکه بتوان پروفایلینگ را انجام داد من یک دستور sleep قرار دادم تا برنامه بسته نشود.
+
+![Screenshot from 2024-08-05 16-44-40](https://github.com/user-attachments/assets/c037fb3a-1f5e-45bd-a5d9-5798511ef899)
+
+![Screenshot from 2024-08-05 16-51-29](https://github.com/user-attachments/assets/ef17a110-abf7-4b9b-9917-1ec975f6929a)
