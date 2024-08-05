@@ -25,14 +25,22 @@
 
 
 پس از تعریف کلاس calculator و پر کردن متود add، تست ها را ران میکنیم که یک سناریو موفقیت آمیز است:
+![image](https://github.com/user-attachments/assets/c5562f5e-b7ea-449b-844c-aec3271a80ac)
 
 
 طبق دستور کار فایل RunnerTest.java را میسازیم تا از جزئیات اجزای تست ها با خبر شویم.
 
+![image](https://github.com/user-attachments/assets/ba27075d-a913-4f40-9ce9-1dba3ce2cf12)
 
 
 با تغییر مقدار Expected به 30000 میبینیم که تست fail میشود
-
+![image](https://github.com/user-attachments/assets/1cef5179-e63e-418f-bfb6-31fd4aebf5de)
+حال به فایل سناریوها، outline گفته شده را اضافه میکنیم.
+![image](https://github.com/user-attachments/assets/e0130d00-984f-4408-9601-2001a7499425)
+با اجرای این تست به ارور missing value برای برخی تست ها میخوریم.
+![image](https://github.com/user-attachments/assets/879abe72-c013-4261-b994-c0c94a550d09)
+این به این دلیل است که یکی از سناریوها عدد 1- را ورودی میدهد که توسط رجکس (+d\) قابل شناسایی نیست. برای رفع این مشکل از رجکس "^Two input values, ([+-]?\\d+) and ([+-]?\\d+)$" استفاده میکنیم.
+![image](https://github.com/user-attachments/assets/5717bd9f-e9b6-4a21-859a-e59c19d3729d)
 
 
 
