@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/90e41703-6253-4a78-9f41-3cc2ed728db9)
 # آزمایش BDD
 
 ## مسئله اول
@@ -35,13 +35,36 @@
 
 با تغییر مقدار Expected به 30000 میبینیم که تست fail میشود
 ![image](https://github.com/user-attachments/assets/1cef5179-e63e-418f-bfb6-31fd4aebf5de)
+
 حال به فایل سناریوها، outline گفته شده را اضافه میکنیم.
 ![image](https://github.com/user-attachments/assets/e0130d00-984f-4408-9601-2001a7499425)
+
 با اجرای این تست به ارور missing value برای برخی تست ها میخوریم.
 ![image](https://github.com/user-attachments/assets/879abe72-c013-4261-b994-c0c94a550d09)
+
 این به این دلیل است که یکی از سناریوها عدد 1- را ورودی میدهد که توسط رجکس (+d\) قابل شناسایی نیست. برای رفع این مشکل از رجکس "^Two input values, ([+-]?\\d+) and ([+-]?\\d+)$" استفاده میکنیم.
 ![image](https://github.com/user-attachments/assets/5717bd9f-e9b6-4a21-859a-e59c19d3729d)
 
 
+## مسئله دوم
+برایاین مسئله میخواهیم یک فیچر جدید به ماشین حساب اضافه کنیم تا عملیات های ضرب و تقسیم و توان را نیز پشتیبانی کند.
+طبق تصویر فایل pro-calculator.feature را ساخته و سناریو های جدید را به همراه outline به ان اضافه میکنیم.
+
+![image](https://github.com/user-attachments/assets/9327dc7f-89e6-41a3-b78b-cea8a8575ec9)
+
+
+حال در فایل Stepdefs باید توابع مخصوص هر یک را اضافه کنیم. توجه کنید مرحله Then I expect the result با قبلی یکسان است و از همان توابع قبلی استفاده میکنیم.
+
+![image](https://github.com/user-attachments/assets/eaec1a21-f26e-4e2f-9fc6-b12c7db5ab9e)
+
+ تابع calculate را نیز در ماشین حسابمان اضافه میکنیم.
+
+![image](https://github.com/user-attachments/assets/a048a675-53b7-4d0a-8f78-ef24482fa2bf)
+
+
+
+حال تست ها را ران میکنیم و میبینیم این سناریو هم پاس میشود.
+
+![image](https://github.com/user-attachments/assets/877fd581-bae7-4a86-9d37-e75df0eaecb6)
 
 
