@@ -1,30 +1,35 @@
-import java.util.ArrayList;
-
 public class Prime {
     public static void main(String[] args) {
         int n = 2000000;
-        ArrayList<Integer> primeNumbers = new ArrayList<>();
-
-        for (int i = 2; i <= n; i++) {
-            if (isPrime(i)) {
-                primeNumbers.add(i);
-            }
-        }
+        boolean[] isPrime = isPrime(n);
 
         long sum = 0;
-        for (int num : primeNumbers) {
-            sum += num;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i]) {
+                sum += i;
+            }
         }
 
         System.out.println("Sum of prime numbers up to " + n + " is equal to: " + sum);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static boolean isPrime(int num) {
-        for (int i = 2; i < num; i++) {
-            if (num % i == 0) {
-                return false;
+    public static boolean[] isPrime(int num) {
+        boolean[] isPrime = new boolean[num + 1];
+        for (int i = 2; i <= num; i++) {
+            isPrime[i] = true;
+        }
+        for (int p = 2; p * p <= num; p++) {
+            if (isPrime[p]) {
+                for (int i = p * p; i <= num; i += p) {
+                    isPrime[i] = false;
+                }
             }
         }
-        return true;
+        return isPrime;
     }
 }
